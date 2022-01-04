@@ -21,4 +21,5 @@ $router->group([
     'prefix' => '/pesalah'
 ], function () use ($router) {
     $router->post('/nombor-ic', 'Aadk\PesalahController@getNoByIc');
+    $router->post('/all', 'Aadk\PesalahController@getAll');
 });
