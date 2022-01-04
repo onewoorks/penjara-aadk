@@ -27,7 +27,7 @@ class AuthController extends Controller {
         $credentials = array(
             "nric" => $input->ic_number, 
             "password" => $input->password,
-            "user_status" => 'active'
+            // "user_status" => 'active'
         );
 
         // $user = ($input->username == 'demo' && $input->password == 'password') ? (object) array("id" => 1, 'user_type' => 'state') : false;
