@@ -20,7 +20,7 @@ class PesalahController extends Controller{
         $ic_list    = $this->cleaningIcPayload($data);
         $pesalah    = Pesalah::getPesalah($ic_list);
         $data       = array(
-            'pesalah' => $pesalah,
+            'pesalah' => $this->icWithResult($pesalah),
         );
         return response()->json($data);
     }
@@ -36,5 +36,13 @@ class PesalahController extends Controller{
             $ic_list    .= (($k+1) < $total_ics) ? ',':'';
         }
         return $ic_list;
+    }
+
+    private function icWithResult($payload){
+        $clean = array();
+        foreach($payload as $pesalah){
+            $clean[$pesalah['no_ic_baru']] = $pesalah;
+        }
+        return $clean;
     }
 }
