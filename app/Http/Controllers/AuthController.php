@@ -26,11 +26,10 @@ class AuthController extends Controller {
         $input = json_decode($request->getContent());
         $credentials = array(
             "nric" => $input->ic_number, 
-            "password" => $input->password,
+            //"password" => $input->password,
             // "user_status" => 'active'
         );
 
-        // $user = ($input->username == 'demo' && $input->password == 'password') ? (object) array("id" => 1, 'user_type' => 'state') : false;
         $user = User::where('nric', $input->ic_number)->first();
 
         $extra_claims = array(
