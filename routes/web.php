@@ -17,6 +17,8 @@ $router->get('/', function () use ($router) {
     return "AADK JIM Integrasi Demonstration";
 });
 
+$router->post('/login', 'AuthController@login');
+
 $router->group([
     'prefix' => '/pesalah'
 ], function () use ($router) {
