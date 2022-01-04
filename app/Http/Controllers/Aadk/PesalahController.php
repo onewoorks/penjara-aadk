@@ -11,6 +11,9 @@ class PesalahController extends Controller{
     public function getNoByIc(Request $request){
         $data = $request->getContent();
         $pesalah = Pesalah::getPesalah();
-        return response()->json(json_decode($pesalah));
+        $data = array(
+            'pesalah' => $pesalah,
+        );
+        return response()->json($pesalah);
     }
 }
