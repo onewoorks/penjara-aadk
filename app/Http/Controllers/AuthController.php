@@ -25,13 +25,13 @@ class AuthController extends Controller {
     public function login(Request $request) {
         $input = json_decode($request->getContent());
         $credentials = array(
-            "username" => $input->username, 
+            "ic_number" => $input->ic_number, 
             "password" => $input->password,
             "user_status" => 'active'
         );
 
-        $user = ($input->username == 'demo' && $input->password == 'password') ? (object) array("id" => 1, 'user_type' => 'state') : false;
-        // $user = User::where('username', $input->username)->first();
+        // $user = ($input->username == 'demo' && $input->password == 'password') ? (object) array("id" => 1, 'user_type' => 'state') : false;
+        $user = User::where('nric', $input->ic_number)->first();
 
         $extra_claims = array(
             'id' => $user->id,
