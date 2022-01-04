@@ -26,7 +26,7 @@ class AuthController extends Controller {
         $input = json_decode($request->getContent());
         $credentials = array(
             "nric" => $input->ic_number, 
-            //"password" => $input->password,
+            "password" => $input->password,
             // "user_status" => 'active'
         );
 
