@@ -41,8 +41,8 @@ class PesalahController extends Controller{
     private function icWithResult($payload){
         $clean = array();
         foreach($payload as $pesalah){
-            $clean[$pesalah['no_ic_baru']] = $pesalah;
+            $clean[$pesalah->no_ic_baru] = $pesalah;
         }
-        return $clean;
+        return (object) $clean;
     }
 }
