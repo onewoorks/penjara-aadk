@@ -26,12 +26,14 @@ class PesalahController extends Controller{
     }
 
     private function cleaningIcPayload($payload){
-        $ic_list = array();
+        $ic_list = '';
         if (gettype($payload->no_kp) != 'array'){
-            $data->no_kp = array($data->no_kp);
+            $payload->no_kp = array($payload->no_kp);
         }
-        foreach($payload->no_kp as $no_kp){
-            $ic_list[]  = strval($no_kp);
+        $total_ics = count($payload->no_kp);
+        foreach($payload->no_kp as $k=>$no_kp){
+            $ic_list  .= "'" . strval($no_kp) . "'";
+            $ic_list    .= (($k+1) < $total_ics) ? ',':'';
         }
         return $ic_list;
     }
