@@ -31,7 +31,7 @@ class AuthController extends Controller {
         );
 
         // $user = ($input->username == 'demo' && $input->password == 'password') ? (object) array("id" => 1, 'user_type' => 'state') : false;
-        $user = User::where('nric', $input->ic_number)->first();
+        $user = User::where('nric', $input->nric)->first();
 
         $extra_claims = array(
             'id' => $user->id,
