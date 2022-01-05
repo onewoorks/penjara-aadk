@@ -9,6 +9,10 @@ class SejarahLampauController extends Controller {
 
     public function getSejarahLampau(){
         $data = Maklumat::getSejarahLampau();
-        return response()->json($data);
+        $response = array(
+            'quantity_pesalah' => count($data),
+            'pesalah' => $data
+        );
+        return response()->json($response);
     }
 }
