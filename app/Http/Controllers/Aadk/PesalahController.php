@@ -21,7 +21,7 @@ class PesalahController extends Controller{
         $pesalah        = Pesalah::getPesalah($ic_list);
         $list_pesalah   = $this->icWithResult($pesalah);
         $data           = array(
-            'quantity_pesalah'  => count($list_pesalah),
+            // 'quantity_pesalah'  => count($list_pesalah),
             'pesalah'           => $list_pesalah
         );
         return response()->json($data);
