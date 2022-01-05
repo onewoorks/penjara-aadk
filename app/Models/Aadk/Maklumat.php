@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Maklumat extends Model {
-
-    public static function getSejarahLampau(){
+    // endpoint 3
+    public static function getSejarahLampau(){ 
         $query = "select pesalah.nama_pesalah, 
         pesalah_biodata.no_ic_baru, 
         kod_penjara.nama_penjara, 
@@ -15,14 +15,17 @@ class Maklumat extends Model {
         pesalah.tarikh_masuk,
         pesalah.epd, 
         pesalah.lpd
-        from pesalah, pesalah_biodata, pesalah_waran, pesalah_kesalahan, kod_penjara
+        from pesalah, pesalah_biodata, pesalah_waran, pesalah_kesalahan, kod_penjara, kod_akta
         where pesalah.no_smpp = pesalah_biodata.no_smpp
         and pesalah.no_smpp = pesalah_waran.no_smpp
         and pesalah_waran.id = pesalah_kesalahan.waran_id
-        and pesalah.lokasi_penjara = kod_penjara.kod_penjara";
+        and pesalah.lokasi_penjara = kod_penjara.kod_penjara
+        and pesalah_kesalahan.kod_aktaid = kod_akta.kod_aktaid
+        and kod_akta.nama_akta like '%Dadah%";
         return DB::connection()->select($query);
     }
 
+    // endpoint 1
     public static function getHadirProgram(){
         $query = "select pesalah.nama_pesalah, 
         pesalah_biodata.no_ic_baru, 
@@ -43,6 +46,7 @@ class Maklumat extends Model {
         return DB::connection()->select($query);
     }
 
+    // endpoint 2
     public static function getOrangKenaPengawasan(){
         $query = "select pesalah.nama_pesalah, 
         pesalah_biodata.no_ic_baru, 
