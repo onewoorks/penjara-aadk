@@ -20,9 +20,8 @@ class PesalahController extends Controller{
         $ic_list        = $this->cleaningIcPayload($data);
         $pesalah        = Pesalah::getPesalah($ic_list);
         $list_pesalah   = $this->icWithResult($pesalah);
-        dd($list_pesalah);
         $data           = array(
-            'quantity_pesalah'  => count($list_pesalah),
+            'quantity_pesalah'  => count(get_object_vars($list_pesalah)),
             'pesalah'           => $list_pesalah
         );
         return response()->json($data);
