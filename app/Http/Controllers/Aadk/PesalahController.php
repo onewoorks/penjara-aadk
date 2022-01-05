@@ -16,12 +16,13 @@ class PesalahController extends Controller{
     }
 
     public function getNoByIc(Request $request){
-        $data       = json_decode($request->getContent());
-        $ic_list    = $this->cleaningIcPayload($data);
-        $pesalah    = Pesalah::getPesalah($ic_list);
-        $data       = array(
-            'quantity_pesalah'  => count($pesalah),
-            'pesalah'           => $this->icWithResult($pesalah),
+        $data           = json_decode($request->getContent());
+        $ic_list        = $this->cleaningIcPayload($data);
+        $pesalah        = Pesalah::getPesalah($ic_list);
+        $list_pesalah   = $this->icWithResult($pesalah);
+        $data           = array(
+            'quantity_pesalah'  => count($list_pesalah),
+            'pesalah'           => $list_pesalah
         );
         return response()->json($data);
     }
