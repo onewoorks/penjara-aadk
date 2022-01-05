@@ -31,7 +31,7 @@ $router->group([
     'prefix' => '/maklumat',
 ], function() use ($router) {
     $router->post('/hadir-program','Aadk\Maklumat\HadirProgramController@getHadirProgram');
-    $router->post('/orang-kena-pengawasan','');
+    $router->post('/orang-kena-pengawasan','Aadk\Maklumat\OrangKenaPengawasanController@getOrangKenaPengawasan');
     $router->post('/sejarah-lampau','Aadk\Maklumat\SejarahLampauController@getSejarahLampau');
     $router->post('/prestasi','');
     $router->post('/dadah','');
