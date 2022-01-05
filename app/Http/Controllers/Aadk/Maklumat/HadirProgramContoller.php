@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Aadk\Maklumat;
 use App\Http\Controllers\Controller;
 use App\Models\Aadk\Maklumat;
 
-class HadirProgram extends Controller {
+class HadirProgramController extends Controller {
 
     public function getHadirProgram(){
         $data = Maklumat::getHadirProgram();
