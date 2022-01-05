@@ -10,7 +10,10 @@ class Pesalah extends Model {
     public static function getPesalah($no_kp){
         $query = "SELECT 
         pesalah.nama_pesalah, pesalah_biodata.no_ic_baru, 
-        pesalah_waran.no_waran, pesalah_kesalahan.akta, pesalah_kesalahan.seksyen, pesalah.lokasi_penjara, pesalah.epd, pesalah.lpd
+        pesalah_waran.no_waran, pesalah_kesalahan.akta, pesalah_kesalahan.seksyen, 
+        -- pesalah.lokasi_penjara, 
+        pesalah.epd, pesalah.lpd
+        (select nama_penjara from kod_penjara where kod_penjara = pesalah.lokasi_penjara ) as lokasi_penjara
         FROM pesalah, pesalah_biodata, pesalah_waran, pesalah_kesalahan
         WHERE pesalah.no_smpp = pesalah_biodata.no_smpp
         AND pesalah_biodata.no_ic_baru IN ($no_kp)
@@ -22,7 +25,10 @@ class Pesalah extends Model {
     public static function getAllPesalah(){
         $query = "SELECT 
         pesalah.nama_pesalah, pesalah_biodata.no_ic_baru, 
-        pesalah_waran.no_waran, pesalah_kesalahan.akta, pesalah_kesalahan.seksyen, pesalah.lokasi_penjara, pesalah.epd, pesalah.lpd
+        pesalah_waran.no_waran, pesalah_kesalahan.akta, pesalah_kesalahan.seksyen, 
+        -- pesalah.lokasi_penjara, 
+        pesalah.epd, pesalah.lpd
+        (select nama_penjara from kod_penjara where kod_penjara = pesalah.lokasi_penjara ) as lokasi_penjara
         FROM pesalah, pesalah_biodata, pesalah_waran, pesalah_kesalahan
         WHERE pesalah.no_smpp = pesalah_biodata.no_smpp
         AND pesalah.no_smpp = pesalah_waran.no_smpp
