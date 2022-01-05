@@ -21,7 +21,7 @@ class Maklumat extends Model {
         and pesalah_waran.id = pesalah_kesalahan.waran_id
         and pesalah.lokasi_penjara = kod_penjara.kod_penjara
         and pesalah_kesalahan.kod_aktaid = kod_akta.kod_aktaid
-        and kod_akta.nama_akta like '%Dadah%";
+        and kod_akta.id in (7,44,62,85,88,104,120,139,177,191,200,212,213,216,219,305,328,397,450)";
         return DB::connection()->select($query);
     }
 
