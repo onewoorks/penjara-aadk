@@ -33,6 +33,6 @@ $router->group([
     $router->post('/hadir-program','Aadk\Maklumat\HadirProgramController@getHadirProgram');
     $router->post('/orang-kena-pengawasan','Aadk\Maklumat\OrangKenaPengawasanController@getOrangKenaPengawasan');
     $router->post('/sejarah-lampau','Aadk\Maklumat\SejarahLampauController@getSejarahLampau');
-    $router->post('/prestasi','');
-    $router->post('/dadah','');
+    $router->post('/prestasi','Aadk\Maklumat\PrestasiController@getPrestasi');
+    $router->post('/dadah','Aadk\Maklumat\DadahController@getDadah');
 });
