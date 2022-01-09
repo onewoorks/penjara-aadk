@@ -2,32 +2,37 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Lumen\Auth\Authorizable;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
+use Throwable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+class User extends Model implements JWTSubject, Authenticatable
 {
-    use Authenticatable, Authorizable, HasFactory;
+    use AuthenticatableTrait; // Laravel provided trait
+    public function getCustomDataAttribute ($value) {
+        /**
+         * First check if the custom_data exists in jwt payload
+         * If not found, only because the jwt is going to be
+         * generated next. Otherwise, it'll always be there.
+         * And attacker cannot modify
+         */
+        try {
+            return auth()->payload()->get('custom_data');
+        } catch ( Throwable $t ) {
+            // When generating the payload
+           return $value;
+        }
+    }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email',
-    ];
+    public function getJWTIdentifier () {
+        return $this->getKey();
+    }
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-    ];
+    public function getJWTCustomClaims () {
+        return [ 
+            'custom_data' => $this->custom_data,
+        ];
+    }
 }

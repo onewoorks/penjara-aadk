@@ -9,7 +9,7 @@ return [
     'guards' => [
         'api' => [
             'driver' => 'jwt',
-            'provider' => 'hardcode_auth',
+            'provider' => 'users',
         ],
     ],
 
@@ -17,9 +17,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => \App\Models\User::class
-        ],
-        'hardcode_auth' => [
-            'driver' => 'auth-provider',
         ]
     ]
 ];

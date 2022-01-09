@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Maklumat extends Model {
 
     // endpoint 1
-    public static function getHadirProgram(){
+    public static function getHadirProgram($no_kp = false){
         $query = "select pesalah.nama_pesalah, 
         pesalah_biodata.no_ic_baru, 
         kod_penjara.nama_penjara, 
@@ -25,11 +25,12 @@ class Maklumat extends Model {
         and pesalah.lokasi_penjara = kod_penjara.kod_penjara
         and pesalah.no_smpp = pesalah_waran.no_smpp
         and pesalah_waran.id = pesalah_kesalahan.waran_id";
+        $query .= ($no_kp) ? " and pesalah_biodata.no_ic_baru = $no_kp" : '';
         return DB::connection()->select($query);
     }
 
     // endpoint 2
-    public static function getOrangKenaPengawasan(){
+    public static function getOrangKenaPengawasan($no_kp = false){
         $query = "select pesalah.nama_pesalah, 
         pesalah_biodata.no_ic_baru, 
         kod_penjara.nama_penjara, 
@@ -48,11 +49,12 @@ class Maklumat extends Model {
         and pesalah_waran.id = pesalah_kesalahan.waran_id
         and pesalah_kesalahan.kod_aktaid = kod_seksyen.kod_aktaid
         and kod_seksyen.kod_aktaid = 81";
+        $query .= ($no_kp) ? " and pesalah_biodata.no_ic_baru = $no_kp" : '';
         return DB::connection()->select($query);
     }
 
     // endpoint 3
-    public static function getSejarahLampau(){ 
+    public static function getSejarahLampau($no_kp = false){ 
         $query = "select pesalah.nama_pesalah, 
         pesalah_biodata.no_ic_baru, 
         kod_penjara.nama_penjara, 
@@ -85,11 +87,14 @@ class Maklumat extends Model {
         or kod_akta.kod_aktaid = 328
         or kod_akta.kod_aktaid = 397
         or kod_akta.kod_aktaid = 450";
+        $query .= ($no_kp) ? " and pesalah_biodata.no_ic_baru = $no_kp" : '';
+        $query .= " LIMIT 100";
         return DB::connection()->select($query);
+        
     }
 
     //endpoint 4
-    public static function getPrestasi(){
+    public static function getPrestasi($no_kp = false){
         $query = "select pesalah.nama_pesalah, 
         pesalah_biodata.no_ic_baru, 
         kerjaya.jenis_program,
@@ -125,12 +130,13 @@ class Maklumat extends Model {
         or kod_akta.kod_aktaid = 328
         or kod_akta.kod_aktaid = 397
         or kod_akta.kod_aktaid = 450";
-
+        $query .= ($no_kp) ? " and pesalah_biodata.no_ic_baru = $no_kp" : '';
+        $query .= " LIMIT 100";
         return DB::connection()->select($query);
     }
 
     // endpoint 5
-    public static function getDadah(){
+    public static function getDadah($no_kp = false){
         $query = "select pesalah.nama_pesalah, 
         pesalah_biodata.no_ic_baru,
         kod_penjara.nama_penjara, 
@@ -161,6 +167,8 @@ class Maklumat extends Model {
         or kod_seksyen.kod_aktaid = 1707
         or kod_seksyen.kod_aktaid = 1714
         or kod_seksyen.kod_aktaid = 2370";
+        $query .= ($no_kp) ? " and pesalah_biodata.no_ic_baru = $no_kp" : '';
+        $query .= " LIMIT 100";
         return DB::connection()->select($query);
     }
 }

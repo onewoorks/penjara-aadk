@@ -21,18 +21,34 @@ $router->post('/login', 'AuthController@login');
 $router->get('/refresh-token', 'AuthController@check');
 
 $router->group([
-    'prefix' => '/pesalah',
+    'prefix' => '/cfx'
+], function () use ($router){
+    $router->group([
+        'prefix' => '/aadkclientcheck'
+    ], function () use ($router){
+        $router->get('/getAadkClientCheck', 'Aadk\AadkClientCheckController@getAddkClientCheck');
+    });
+    
+});
+
+$router->group([
+    'prefix' => '/pesalah'
 ], function () use ($router) {
     $router->post('/nombor-ic', 'Aadk\PesalahController@getNoByIc');
     $router->post('/semua', 'Aadk\PesalahController@getAllPesalah');
 });
 
 $router->group([
-    'prefix' => '/maklumat',
+    'prefix' => '/request',
 ], function() use ($router) {
-    $router->post('/hadir-program','Aadk\Maklumat\HadirProgramController@getHadirProgram');
-    $router->post('/orang-kena-pengawasan','Aadk\Maklumat\OrangKenaPengawasanController@getOrangKenaPengawasan');
-    $router->post('/sejarah-lampau','Aadk\Maklumat\SejarahLampauController@getSejarahLampau');
-    $router->post('/prestasi','Aadk\Maklumat\PrestasiController@getPrestasi');
-    $router->post('/dadah','Aadk\Maklumat\DadahController@getDadah');
+    $router->group([
+        'prefix' => '/client',  
+    ],function () use ($router){
+        $router->post('/search', 'Aadk\PesalahController@getNoByIc');
+        $router->post('/hadir-program','Aadk\Maklumat\HadirProgramController@getHadirProgram');
+        $router->post('/orang-kena-pengawasan','Aadk\Maklumat\OrangKenaPengawasanController@getOrangKenaPengawasan');
+        $router->post('/sejarah-lampau','Aadk\Maklumat\SejarahLampauController@getSejarahLampau');
+        $router->post('/prestasi','Aadk\Maklumat\PrestasiController@getPrestasi');
+        $router->post('/dadah','Aadk\Maklumat\DadahController@getDadah');
+    });
 });

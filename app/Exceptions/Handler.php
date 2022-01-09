@@ -9,8 +9,11 @@ use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
+use App\Traits\HmpkErrors;
+
 class Handler extends ExceptionHandler
 {
+    use HmpkErrors;
     /**
      * A list of the exception types that should not be reported.
      *
@@ -55,8 +58,10 @@ class Handler extends ExceptionHandler
 
     return response()->json([
         'error' => [
-            'code' => $rendered->getStatusCode(),
-            'message' => $exception->getMessage(),
+            // 'code' => $rendered->getStatusCode(),
+            // 'message' => $exception->getMessage(),
+            'hmpk_message' => $this->errorRef($rendered->getStatusCode()),
+            'hmpk_error_code' => $rendered->getStatusCode(),
         ]
     ], $rendered->getStatusCode());
     }
