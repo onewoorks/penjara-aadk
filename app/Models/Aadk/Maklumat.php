@@ -61,32 +61,15 @@ class Maklumat extends Model {
         pesalah_waran.no_waran, 
         pesalah.tarikh_masuk,
         pesalah.epd, 
-        pesalah.lpd
-        from pesalah, pesalah_biodata, pesalah_waran, pesalah_kesalahan, kod_penjara, kod_akta
-        where pesalah.no_smpp = pesalah_biodata.no_smpp
-        and pesalah.no_smpp = pesalah_waran.no_smpp
-        and pesalah_waran.id = pesalah_kesalahan.waran_id
-        and pesalah.lokasi_penjara = kod_penjara.kod_penjara
-        and pesalah_kesalahan.kod_aktaid = kod_akta.kod_aktaid
-        and kod_akta.kod_aktaid = 7
-        or kod_akta.kod_aktaid = 44
-        or kod_akta.kod_aktaid = 62
-        or kod_akta.kod_aktaid = 85
-        or kod_akta.kod_aktaid = 88
-        or kod_akta.kod_aktaid = 104
-        or kod_akta.kod_aktaid = 120
-        or kod_akta.kod_aktaid = 139
-        or kod_akta.kod_aktaid = 177
-        or kod_akta.kod_aktaid = 191
-        or kod_akta.kod_aktaid = 200
-        or kod_akta.kod_aktaid = 212
-        or kod_akta.kod_aktaid = 213
-        or kod_akta.kod_aktaid = 216
-        or kod_akta.kod_aktaid = 219
-        or kod_akta.kod_aktaid = 305
-        or kod_akta.kod_aktaid = 328
-        or kod_akta.kod_aktaid = 397
-        or kod_akta.kod_aktaid = 450";
+        pesalah.lpd,
+        kod_akta.kod_aktaid
+        from pesalah 
+        join pesalah_biodata using(no_smpp)
+        join pesalah_waran using(no_smpp)
+        join kod_penjara on(pesalah.lokasi_penjara = kod_penjara)
+        join pesalah_kesalahan on(pesalah_waran.id = pesalah_kesalahan.waran_id)
+        join kod_akta using(kod_aktaid)
+        where kod_aktaid in (7, 44, 62, 85, 88, 104, 120, 139, 177, 191, 200, 212, 213, 216, 219, 305, 328, 397, 450)";
         $query .= ($no_kp) ? " and pesalah_biodata.no_ic_baru = $no_kp" : '';
         $query .= " LIMIT 100";
         return DB::connection()->select($query);
