@@ -22,7 +22,7 @@ class PesalahController extends Controller{
         if($request->status == 'success'){
             $mode_carian = $this->modeCarian($request->message);
             if($mode_carian){
-                $pesalah = array();
+                $pesalah = $mode_carian;
                 $data->hpmk_message->hpmkmessage_payload = (Object) array();
                 $data->hpmk_message->hpmk_message_payload->hpmk_data  = $this->finalResult($pesalah);
             } else {
