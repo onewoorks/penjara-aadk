@@ -39,6 +39,27 @@ $router->group([
 });
 
 $router->group([
+    'prefix' => '/imigresen',
+], function () use ($router){
+    $router->group([
+        'prefix' => '/pesalah'
+    ], function () use ($router) {
+        $router->post('/carian', 'Imigresen\PesalahController@getPesalah');
+    });
+});
+
+$router->group([
+    'prefix' => '/aadk',
+], function () use ($router){
+    $router->post('/search', 'Aadk\PesalahController@getNoByIc');
+    $router->post('/hadir-program','Aadk\Maklumat\HadirProgramController@getHadirProgram');
+    $router->post('/orang-kena-pengawasan','Aadk\Maklumat\OrangKenaPengawasanController@getOrangKenaPengawasan');
+    $router->post('/sejarah-lampau','Aadk\Maklumat\SejarahLampauController@getSejarahLampau');
+    $router->post('/prestasi','Aadk\Maklumat\PrestasiController@getPrestasi');
+    $router->post('/dadah','Aadk\Maklumat\DadahController@getDadah');
+});
+
+$router->group([
     'prefix' => '/request',
 ], function() use ($router) {
     $router->group([

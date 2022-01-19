@@ -66,6 +66,7 @@ trait RequestResponse {
         
     }
 
+
     private function responseError($header, $error){
         return $this->hmpkMessagePayload($header, $error);
     }
