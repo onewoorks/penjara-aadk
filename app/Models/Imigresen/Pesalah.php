@@ -52,6 +52,7 @@ class Pesalah extends Model {
         from pesalah_waris a, pesalah_harta_benda c, pesalah f,pesalah_biodata b, pesalah_waran d, pesalah_kesalahan e, kod_penjara g, rawatan_saringan m,rawatan_kemasukan n
         where f.no_smpp='$smpp_no' and  f.no_smpp=c.no_smpp and f.no_smpp=a.no_smpp and f.no_smpp=b.no_smpp and d.waran_id=e.waran_id and f.no_smpp=m.no_smpp and f.no_smpp=n.no_smpp and d.waran_id in(select waran_id from pesalah_waran where d.no_smpp=f.no_smpp) and d.waran_id=e.waran_id and f.lokasi_penjara=g.kod_penjara
         ";
+        dd($query);
         return DB::connection()->select($query);
     }
 
