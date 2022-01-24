@@ -49,6 +49,12 @@ $router->group([
 });
 
 $router->group([
+    'prefix' => '/mygdx'
+], function () use ($router){
+    $router->post('/client-check', 'Mygdx\ClientController@checkClient');
+});
+
+$router->group([
     'prefix' => '/aadk',
 ], function () use ($router){
     $router->post('/search', 'Aadk\PesalahController@getNoByIc');
