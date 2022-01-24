@@ -17,8 +17,8 @@ class ClientController extends Controller {
         $data       = json_decode($request->getContent());
         $params     = $this->validateRequest($data);
         $response   = $this->callMygdxClientCheck($data);
-        dd($response);
-        // return response()->json($data);
+        // dd($response);
+        return $data;
     }
 
     private function callMygdxClientCheck($payload) {
