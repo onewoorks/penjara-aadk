@@ -33,7 +33,7 @@ class ClientController extends Controller {
         );
         $mygdx_request  = $this->requestMyGdxFormat($payload);
         $response       = $this->callMygdxClientCheck($mygdx_request);
-        return response()->json($response);
+        return response()->json(json_decode($response));
     }
 
     private function callMygdxClientCheck($payload) {
