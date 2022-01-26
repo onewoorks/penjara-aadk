@@ -33,8 +33,9 @@ class ClientController extends Controller {
         );
         $mygdx_request  = $this->requestMyGdxFormat($payload);
         $response       = $this->callMygdxClientCheck($mygdx_request);
-        // dd($mygdx_request);
-        return response()->json(json_decode($response));
+        $result         = json_decode($response);
+        $client         = $result->hpmk_message->hpmk_message_payload->hpmk_data->records;
+        return response()->json(json_decode($client));
     }
 
     private function callMygdxClientCheck($payload) {
