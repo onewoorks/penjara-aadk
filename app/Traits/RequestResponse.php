@@ -53,11 +53,15 @@ trait RequestResponse {
         return $response;
     }
 
-    private function requestPayload($payload){
+    private function requestPayloadMyGdx($payload){
         $request = array(
             "kp" => $payload->kp
         );
         return $request;
+    }
+
+    private function requestPayload($payload){
+        return $payload;
     }
 
     public function validateRequest($payload){
