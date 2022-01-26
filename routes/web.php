@@ -52,6 +52,7 @@ $router->group([
     'prefix' => '/mygdx'
 ], function () use ($router){
     $router->post('/client-check', 'Mygdx\ClientController@checkClient');
+    $router->post('/api/client-check', 'Mygdx\ClientController@getCheckClient');
 });
 
 $router->group([
