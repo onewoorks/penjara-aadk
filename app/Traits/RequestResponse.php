@@ -16,9 +16,12 @@ trait RequestResponse {
     }
 
     public function requestMyGdxFormat($payload) {
+        $hpmk_message_header  = $this->hpmkMessage($payload->header);
         return array(
-            "hpmk_message" => $this->hpmkMessage($payload->header),
-            "hpmk_message_payload" => $this->requestPayload($payload->request),
+            "hpmk_message" => array(
+                "hpmk_message_header"   => $hpmk_message_header['hpmk_message_header'],
+                "hpmk_message_payload"  => $this->requestPayload($payload->request)
+            )
         );
     }
 
@@ -50,7 +53,7 @@ trait RequestResponse {
         return $response;
     }
 
-    public function requestPayload($payload){
+    private function requestPayload($payload){
         $request = array(
             "kp" => $payload->kp
         );
