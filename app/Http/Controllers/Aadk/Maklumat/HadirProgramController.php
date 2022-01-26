@@ -18,7 +18,6 @@ class HadirProgramController extends Controller {
 
     public function getHadirProgram(Request $request){
         $data           = json_decode($request->getContent());
-        dd($data);
         return $this->withHpmkFormat($data);
     }
 

@@ -20,7 +20,7 @@ trait RequestResponse {
         return array(
             "hpmk_message" => array(
                 "hpmk_message_header"   => $hpmk_message_header['hpmk_message_header'],
-                "hpmk_message_payload"  => $this->requestPayload($payload->request)
+                "hpmk_message_payload"  => $this->requestPayloadMyGdx($payload->request)
             )
         );
     }
@@ -53,15 +53,16 @@ trait RequestResponse {
         return $response;
     }
 
+    private function requestPayload($payload){
+        return $payload;
+    }
+
+
     private function requestPayloadMyGdx($payload){
         $request = array(
             "kp" => $payload->kp
         );
         return $request;
-    }
-
-    private function requestPayload($payload){
-        return $payload;
     }
 
     public function validateRequest($payload){
