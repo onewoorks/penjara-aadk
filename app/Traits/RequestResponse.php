@@ -15,24 +15,31 @@ trait RequestResponse {
         );
     }
 
+    public function requestMyGdxFormat($payload) {
+        return array(
+            "hpmk_message" => $this->hpmkMessage($payload->header),
+            "hpmk_message_payload" => $this->requestPayload($payload->request),
+        );
+    }
+
     private function hpmkMessage($payload) {
         return array(
             "hpmk_message_header"       => array(
                 "messageSentDateTime"   => isset($payload->messageSentDateTime) ? $payload->messageSentDateTime : date("D M j G:i:s T Y"),
-                "agencyCode"            => isset($payload->agencyCode) ? $payload->agencyCode : null,
-                "serviceName"           => isset($payload->serviceName) ? $payload->serviceName : null,
-                "serviceVersion"        => (String) isset($payload->serviceVersion) ? $payload->serviceVersion : null,
-                "agencyAppAuthCode"     => (String) isset($payload->agencyAppAuthCode) ? $payload->agencyAppAuthKey : null,
-                "agencyAppAuthKey"      => (String) isset($payload->agencyAppAuthKey) ? $payload->agencyAppAuthCode : null,
-                "applicationCode"       => (String) isset($payload->applicationCode) ? $payload->applicationCode : null,
+                "agencyCode"            => isset($payload->agencyCode) ? $payload->agencyCode : env('AADK_AGENCY_CODE'),
+                "serviceName"           => isset($payload->serviceName) ? $payload->serviceName : env('AADK_SERVICE_NAME'),
+                "serviceVersion"        => (String) isset($payload->serviceVersion) ? $payload->serviceVersion : env('AADK_SERVICE_VERSION'),
+                "agencyAppAuthCode"     => (String) isset($payload->agencyAppAuthCode) ? $payload->agencyAppAuthKey : env('AADK_AGENCY_APP_AUTH_CODE'),
+                "agencyAppAuthKey"      => (String) isset($payload->agencyAppAuthKey) ? $payload->agencyAppAuthCode : env('AADK_AGENCY_APP_AUTH_KEY'),
+                "applicationCode"       => (String) isset($payload->applicationCode) ? $payload->applicationCode : env('AADK_APPLICATION_CODE'),
                 "userUUID"              => (String) isset($payload->userUUID) ? $payload->userUUID : "middleware-integration-smpp-api",
                 "userUUIDType"          => (String) isset($payload->userUUIDType) ? $payload->userUUIDType : 'OTHERS',
-                "currentPageNum"        => isset($payload->currentPageNum) ? $payload->currentPageNum : null,
-                "sessionID"             => isset($payload->sessionID) ? $payload->sessionID : null,
-                "resMessageID"          => isset($payload->resMessageID) ? $payload->resMessageID : null,
-                "compressedPayload"     => isset($payload->compressedPayload) ? $payload->compressedPayload : null,
-                "totalPageNum"          => isset($payload->totalPageNum) ? $payload->totalPageNum : null,
-                "transactionChecksum"   => isset($payload->transactionChecksum) ? $payload->transactionChecksum : null
+                "currentPageNum"        => isset($payload->currentPageNum) ? $payload->currentPageNum : "",
+                "sessionID"             => isset($payload->sessionID) ? $payload->sessionID : "",
+                "resMessageID"          => isset($payload->resMessageID) ? $payload->resMessageID : "",
+                "compressedPayload"     => isset($payload->compressedPayload) ? $payload->compressedPayload : "",
+                "totalPageNum"          => isset($payload->totalPageNum) ? $payload->totalPageNum : "",
+                "transactionChecksum"   => isset($payload->transactionChecksum) ? $payload->transactionChecksum : ""
             ));
     }
 
@@ -44,7 +51,10 @@ trait RequestResponse {
     }
 
     public function requestPayload($payload){
-        return $payload;
+        $request = array(
+            "kp" => $payload->kp
+        );
+        return $request;
     }
 
     public function validateRequest($payload){

@@ -20,6 +20,22 @@ class ClientController extends Controller {
         return response()->json(json_decode($response));
     }
 
+    public function aadkClientCheck(Request $request){
+        $data       = json_decode($request->getContent());
+        $header     = $data->smpp_username;
+        $response   = array();
+        $payload    = (object) array(
+            "header"    => (object) array(
+                "userUUID"      => $data->smpp_username,
+                "userUUIDType"  => isset($data->smpp_username) ? "UID" : "OTHERS"
+            ),
+            "request"   => $data
+        );
+        $mygdx_request  = $this->requestMyGdxFormat($payload);
+        $response       = $this->callMygdxClientCheck($mygdx_request);
+        return response()->json($response);
+    }
+
     private function callMygdxClientCheck($payload) {
         $post_data = json_encode($payload);
         $curl = curl_init();
