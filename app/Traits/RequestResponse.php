@@ -18,15 +18,15 @@ trait RequestResponse {
     private function hpmkMessage($payload) {
         return array(
             "hpmk_message_header"       => array(
-                "messageSentDateTime"   => isset($payload->messageSentDateTime),
+                "messageSentDateTime"   => isset($payload->messageSentDateTime) ? $payload->messageSentDateTime : date("D M j G:i:s T Y"),
                 "agencyCode"            => isset($payload->agencyCode) ? $payload->agencyCode : null,
                 "serviceName"           => isset($payload->serviceName) ? $payload->serviceName : null,
                 "serviceVersion"        => (String) isset($payload->serviceVersion) ? $payload->serviceVersion : null,
                 "agencyAppAuthCode"     => (String) isset($payload->agencyAppAuthCode) ? $payload->agencyAppAuthKey : null,
                 "agencyAppAuthKey"      => (String) isset($payload->agencyAppAuthKey) ? $payload->agencyAppAuthCode : null,
                 "applicationCode"       => (String) isset($payload->applicationCode) ? $payload->applicationCode : null,
-                "userUUID"              => (String) isset($payload->userUUID) ? $payload->userUUID : null,
-                "userUUIDType"          => (String) isset($payload->userUUIDType) ? $payload->userUUIDType : null,
+                "userUUID"              => (String) isset($payload->userUUID) ? $payload->userUUID : "middleware-integration-smpp-api",
+                "userUUIDType"          => (String) isset($payload->userUUIDType) ? $payload->userUUIDType : 'OTHERS',
                 "currentPageNum"        => isset($payload->currentPageNum) ? $payload->currentPageNum : null,
                 "sessionID"             => isset($payload->sessionID) ? $payload->sessionID : null,
                 "resMessageID"          => isset($payload->resMessageID) ? $payload->resMessageID : null,
