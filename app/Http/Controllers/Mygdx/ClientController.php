@@ -35,7 +35,7 @@ class ClientController extends Controller {
         $response       = $this->callMygdxClientCheck($mygdx_request);
         $result         = json_decode($response);
         $client         = $result->hpmk_message->hpmk_message_payload->hpmk_data->records;
-        return response()->json(json_decode($client));
+        return response()->json($client);
     }
 
     private function callMygdxClientCheck($payload) {
