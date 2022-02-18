@@ -61,7 +61,6 @@ class Pesalah extends Model {
         AND pesalah_biodata.no_ic_baru IN ($no_kp)
         AND pesalah.no_smpp = pesalah_waran.no_smpp
         AND pesalah_waran.id = pesalah_kesalahan.waran_id";
-        dd($query);
         return DB::connection()->select($query);
     }
 
